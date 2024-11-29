@@ -52,7 +52,7 @@ class CheddarGetter_Response extends DOMDocument {
 	 * This is run when the object is serialized, for example. See PHP magic __sleep method docs.
 	 * @return array
 	 */
-	public function __sleep() {
+	public function __serialize() {
 		$this->_xml = $this->saveXML();
 		return array('_xml', '_responseType');
 	}
@@ -62,8 +62,8 @@ class CheddarGetter_Response extends DOMDocument {
 	 *
 	 * This is run when the object is unserialized, for example. See PHP magic __wakeup method docs.
 	 */
-	public function __wakeup() {
-		$this->loadXML( $this->_xml );
+	public function __unserialize($data) {
+		$this->loadXML( $data->_xml );
 	}
 
 	/**
